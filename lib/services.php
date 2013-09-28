@@ -32,5 +32,7 @@ Service::register('Router', function() use ($root) {
 		'_folder.php'
 	);
 
+	$router->matchTemplate('/\.html$/', 'html.template.php');
+
 	return $router;
 });

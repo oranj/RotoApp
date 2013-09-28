@@ -1,6 +1,13 @@
 php_flag display_errors "1"
 php_flag short_open_tag "1"
 
+# public folder can't be executed
+<FilesMatch "^public\/*">
+	Allow from all
+	php_flag engine off
+	AddType text/plain .html .htm .shtml .php .php3 .phtml .phtm .pl .py .cgi
+</FilesMatch>
+
 RewriteEngine On
 
 # if a file exists in public, go there
