@@ -21,18 +21,30 @@ Service::register('DB', function() {
 });
 
 Service::register('View', function() {
-	return View::getInstance();
+	return new View();
 });
 
 Service::register('Router', function() use ($root) {
 	$router = new Router(
 		Service::View(),
 		$root . '/www/',
-		$root . '/layout/templates/',
-		'_folder.php'
+		$root . '/layout/templates/'
 	);
 
-	$router->matchTemplate('/\.html$/', 'html.template.php');
+	$router
+
+		->map('/.*/', array(
+			'template' => 'html.template.php'
+		))
+
+		->map('/^(?P<folder>.?)\/$/', array(
+			'request' => '@folder/index.html'
+		))
+
+		->map('/^\/(?P<folder>.*)(?P<base>[^\.\/]+)\.(?P<extension>.+)$/', array(
+			'view' => '@folder@base.@extension.php',
+			'controller' => '@folder@base.php'
+		));
 
 	return $router;
 });
