@@ -17,4 +17,4 @@ RewriteRule ^ public/%{REQUEST_URI} [L]
 RewriteCond %{REQUEST_URI} ^/public/
 RewriteRule ^(.*)$ - [S=1]
 
-RewriteRule ^(.*)$ index.php [L]
+RewriteRule ^(.*)$ http.php [L]
